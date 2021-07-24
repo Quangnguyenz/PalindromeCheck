@@ -59,67 +59,51 @@
                 <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
                         //Controller Function
-                        function getValue(){
-                            let inputWord = document.getElementById("inputWord").value;
-                        
-                            let reversedWord = checkPal(inputWord);
-                        
-                            if (reversedWord[0] == false){
-                                displayNotPalindrome(reversedWord[1]);
-                            } else {
-                                displayPalindrome(reversedWord[1]);
-                            }
-                        
-                        }
-                        
-                        
-                        //logic function
-                        function checkPal(inputWord){
-                            //convert the input string to lower case with no white space
-                            let lowerCaseWord = inputWord.toLowerCase();
-                            let newWord = lowerCaseWord.replace(/[^A-Z0-9]/ig, ""); 
-                            //put chars in the input string to an array
-                            let inputWordArray = [];
-                            for (let i = 0; i < newWord.length; i++) {
-                                inputWordArray[i] = newWord[i];
-                            }
-                            
-                        
-                            //Create a reversed array
-                            let reversedArray = [];
-                            for (let i = inputWordArray.length - 1; i >= 0; i--) {
-                                reversedArray.push(inputWordArray[i]);     
-                            }
-                        
-                            //Compare the two array to see if they are the same
-                            if (inputWordArray.toString() === reversedArray.toString()){
-                                return [true, reversedArray.join("")];
-                            } else {
-                                return [false, reversedArray.join("")]; 
-                            } 
-                        }
-                        
-                        //display function
-                        function displayPalindrome(reversedWord){
-                            document.getElementById("resultBox").classList.remove("invisible");
-                            document.getElementById("displayTitle").innerHTML = `Great! You entered a Palindrome`;
-                            document.getElementById("result").innerHTML = `Your reversed word is ${reversedWord}`;
-                            
-                           
-                        }
-                        
-                        function displayNotPalindrome(reversedWord){
-                            document.getElementById("resultBox").classList.remove("invisible");
-                            document.getElementById("displayTitle").innerHTML = `This is not a Palindrome`;
-                            document.getElementById("result").innerHTML = `Your reversed word is ${reversedWord}`;
-                        }
+function getValue(){
+    let inputWord = document.getElementById("inputWord").value;
+
+    let returnObj = checkPalindrome(inputWord);
+
+    displayResults(returnObj); 
+
+}
+
+
+//logic function
+function checkPalindrome(inputWord){
+    //convert the input string to lower case with no white space
+    inputWord = inputWord.toLowerCase();
+    inputWord = inputWord.replace(/[^A-Z0-9]/ig, ""); 
+    //Create the reversed word
+    let reversedWord = "";
+    for (let i = inputWord.length - 1; i >= 0; i--) {
+        reversedWord += inputWord[i];
+    }
+    //Create an object with a statement var and a reversed word var to use for display
+    let returnObj = {};
+    returnObj.reversed = reversedWord;
+    if(inputWord == reversedWord){
+        returnObj.resultStatement = "Great, you entered a palindrome";
+    } else {
+        returnObj.resultStatement = "Not a palindrome";
+    }
+    return returnObj;
+}
+
+//display function
+function displayResults(returnObj){
+    document.getElementById("resultBox").classList.remove("invisible");
+    document.getElementById("displayTitle").innerHTML = `${returnObj.resultStatement}`;
+    document.getElementById("result").innerHTML = `Your word reversed is ${returnObj.reversed}`;
+}
+    
                     </code>
                 </pre>
                 </div>
                 <div class="col-lg-4">
-<p>The code is structed in one function.</p>
-<h5>Hello World</h5>
-<p>Hello World is a function that displays and alert with a message of "hello World"</p>
+                    <p>The code is structed in one function.</p>
+                    <h5>Hello World</h5>
+                    <p>Hello World is a function that displays and alert with a message of "hello World"</p>
                 </div>
             </div>
         </div>
